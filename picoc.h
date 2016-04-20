@@ -41,7 +41,7 @@ void PicocParseInteractive(Picoc *pc);
 void PicocCallMain(Picoc *pc, int argc, char **argv);
 void PicocInitialise(Picoc *pc, int StackSize);
 void PicocCleanup(Picoc *pc);
-void PicocPlatformScanFile(Picoc *pc, const char *FileName);
+void PicocPlatformScanFile(Picoc *pc, const char *FileName, int RunIt);
 
 /* include.c */
 void PicocIncludeAllSystemHeaders(Picoc *pc);

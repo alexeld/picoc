@@ -97,7 +97,7 @@ void IncludeFile(Picoc *pc, char *FileName)
     }
     
     /* not a predefined file, read a real file */
-    PicocPlatformScanFile(pc, FileName);
+    PicocPlatformScanFile(pc, FileName, TRUE);
 }
 
 #endif /* NO_HASH_INCLUDE */

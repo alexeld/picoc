@@ -17,6 +17,7 @@ int main(int argc, char **argv)
 {
     int ParamCount = 1;
     int DontRunMain = FALSE;
+    int RunIt = FALSE;
     int StackSize = getenv("STACKSIZE") ? atoi(getenv("STACKSIZE")) : PICOC_STACK_SIZE;
     Picoc pc;
     
@@ -24,17 +25,26 @@ int main(int argc, char **argv)
     {
         printf("Format: picoc <csource1.c>... [- <arg1>...]    : run a program (calls main() to start it)\n"
                "        picoc -s <csource1.c>... [- <arg1>...] : script mode - runs the program without calling main()\n"
+               "        picoc -c <csource1.c>                  : syntax mode - checks the syntax\n"
                "        picoc -i                               : interactive mode\n");
         exit(1);
     }
     
     PicocInitialise(&pc, StackSize);
-    
+
     if (strcmp(argv[ParamCount], "-s") == 0 || strcmp(argv[ParamCount], "-m") == 0)
     {
         DontRunMain = TRUE;
         PicocIncludeAllSystemHeaders(&pc);
         ParamCount++;
+    }
+
+    if (strcmp(argv[ParamCount], "-c") == 0)
+    {
+        DontRunMain = TRUE;
+        PicocIncludeAllSystemHeaders(&pc);
+        ParamCount++;
+        RunIt = FALSE;
     }
         
     if (argc > ParamCount && strcmp(argv[ParamCount], "-i") == 0)
@@ -51,7 +61,7 @@ int main(int argc, char **argv)
         }
         
         for (; ParamCount < argc && strcmp(argv[ParamCount], "-") != 0; ParamCount++)
-            PicocPlatformScanFile(&pc, argv[ParamCount]);
+            PicocPlatformScanFile(&pc, argv[ParamCount], RunIt);
         
         if (!DontRunMain)
             PicocCallMain(&pc, argc - ParamCount, &argv[ParamCount]);

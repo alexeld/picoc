@@ -117,7 +117,7 @@ char *PlatformReadFile(Picoc *pc, const char *FileName)
 }
 
 /* read and scan a file for definitions */
-void PicocPlatformScanFile(Picoc *pc, const char *FileName)
+void PicocPlatformScanFile(Picoc *pc, const char *FileName, int RunIt)
 {
     char *SourceStr = PlatformReadFile(pc, FileName);
 
@@ -128,7 +128,7 @@ void PicocPlatformScanFile(Picoc *pc, const char *FileName)
         SourceStr[1] = '/'; 
     }
 
-    PicocParse(pc, FileName, SourceStr, strlen(SourceStr), TRUE, FALSE, TRUE, TRUE);
+    PicocParse(pc, FileName, SourceStr, strlen(SourceStr), RunIt, FALSE, TRUE, TRUE);
 }
 
 /* exit the program */
