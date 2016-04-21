@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 {
     int ParamCount = 1;
     int DontRunMain = FALSE;
-    int RunIt = FALSE;
+    int RunIt = TRUE;
     int StackSize = getenv("STACKSIZE") ? atoi(getenv("STACKSIZE")) : PICOC_STACK_SIZE;
     Picoc pc;
     
